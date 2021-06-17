@@ -1,8 +1,6 @@
 #pragma once
 
 #include <QButtonGroup>
-#include <QPushButton>
-#include <QStackedWidget>
 #include <QVBoxLayout>
 #include <QWidget>
 
@@ -30,13 +28,13 @@ public:
 
 private:
   WifiManager *wifi = nullptr;
-  QVBoxLayout *vlayout;
+  QVBoxLayout* main_layout;
 
   QButtonGroup *connectButtons;
   bool tetheringEnabled;
 
 signals:
-  void connectToNetwork(Network n);
+  void connectToNetwork(const Network &n);
 
 public slots:
   void refresh();
@@ -68,7 +66,7 @@ public:
   explicit Networking(QWidget* parent = 0, bool show_advanced = true);
 
 private:
-  QStackedLayout* s = nullptr; // nm_warning, wifiScreen, advanced
+  QStackedLayout* main_layout = nullptr; // nm_warning, wifiScreen, advanced
   QWidget* wifiScreen = nullptr;
   AdvancedNetworking* an = nullptr;
   bool ui_setup_complete = false;
@@ -81,8 +79,8 @@ private:
   void attemptInitialization();
 
 private slots:
-  void connectToNetwork(Network n);
+  void connectToNetwork(const Network &n);
   void refresh();
-  void wrongPassword(QString ssid);
+  void wrongPassword(const QString &ssid);
 };
 
